@@ -1,7 +1,7 @@
 package com.example.high.capacity.architecture
 
-import java.util.LinkedList
 import java.util.Queue
+import java.util.concurrent.ConcurrentLinkedQueue
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Component
 
@@ -13,8 +13,8 @@ class EventQueueComponent(
     private lateinit var prizes: List<String>
 
     companion object {
-        val queue: Queue<String> = LinkedList()
-        private const val KEY = "TEST"
+        val queue: Queue<String> = ConcurrentLinkedQueue()
+        private const val KEY = "CONCURRENT"
     }
 
     fun putUser(user: String) {
