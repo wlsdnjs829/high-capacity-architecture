@@ -17,11 +17,8 @@ class LoadController(
     }
 
     @GetMapping("/look-up/{id}")
-    fun lookUp(@PathVariable id: String): String {
-        eventQueueComponent.putUser(ThreadLocalRandom.current().nextInt().toString())
-        return "등록 완료"
+    fun lookUp(@PathVariable id: String): Status {
+        return eventQueueComponent.lookUpStatus(id)
     }
-    
-    // todo 스케쥴러 만들어서 Queue Redis로 넣기
 
 }
