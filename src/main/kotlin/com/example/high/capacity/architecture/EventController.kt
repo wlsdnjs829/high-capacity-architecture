@@ -24,7 +24,7 @@ class EventController(
 
     @PostMapping("/{id}")
     fun callEvent(@PathVariable id: Long) {
-        return eventService.callEvent(id)
+        return eventService.callEventTest(id)
     }
 
 }

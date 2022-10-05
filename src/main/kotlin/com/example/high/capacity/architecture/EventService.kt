@@ -1,7 +1,10 @@
 package com.example.high.capacity.architecture
 
 import java.util.concurrent.ConcurrentLinkedQueue
+import javax.persistence.LockModeType
+import org.springframework.data.jpa.repository.Lock
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 
 @Service
@@ -18,6 +21,14 @@ class EventService(
     fun createEvent() {
         val event = Event(name = "JINWON", called = 0)
         eventRepository.save(event)
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    fun callEventTest(id: Long) {
+        val event = findEvent(id)
+        event.increment()
+        val save = eventRepository.save(event)
+        println(save.called)
     }
 
     @Transactional
